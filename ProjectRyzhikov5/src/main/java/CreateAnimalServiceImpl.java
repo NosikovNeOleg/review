@@ -23,8 +23,8 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
     }
 
     public void createAnimals(int animalsQuantity) {
+        int animalChooser;
         for (int i = 0; i < animalsQuantity; i++) {
-            int animalChooser;
             System.out.print("          Create Animal №" + (i+1) + ": ");
             animalChooser = i % 4;
             switch (animalChooser) {

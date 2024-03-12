@@ -24,4 +24,6 @@ public interface CreateAnimalService {
         }
     }
 
+    void createAnimals(int animalsQuantity);
+
 }

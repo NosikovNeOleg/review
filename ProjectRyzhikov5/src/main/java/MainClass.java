@@ -1,11 +1,14 @@
+import Interfaces.CreateAnimalService;
+
 public class MainClass {
     public static void main(String[] args) {
 
         //System.out.println("Hello");
-        CreateAnimalServiceImpl createAnimalServiceImpl = new CreateAnimalServiceImpl();
-        createAnimalServiceImpl.createAnimalsInitial();
-        createAnimalServiceImpl.createAnimals();
-        createAnimalServiceImpl.createAnimals(8);
+        CreateAnimalService createAnimalService = new CreateAnimalServiceImpl();
+        createAnimalService.createAnimals();
+        createAnimalService.createAnimals(8);
+        CreateAnimalService createAnimalServiceImplDefault = new CreateAnimalServiceImplDefault();
+        createAnimalServiceImplDefault.createAnimals(); // вызов дефолтного метода интерфейса
     }
 
 }

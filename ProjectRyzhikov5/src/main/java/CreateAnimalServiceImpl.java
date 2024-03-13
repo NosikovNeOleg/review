@@ -37,8 +37,4 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
         }
     }
 
-    public void createAnimalsInitial() {
-        CreateAnimalService.super.createAnimals();
-    }
-
 }

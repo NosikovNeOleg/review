@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.time.LocalDate;
+
 public interface Animal {
     String getBreed();
 
@@ -8,4 +10,6 @@ public interface Animal {
     Double getCost();
 
     String getCharacter();
+
+    LocalDate getBirthDate();
 }

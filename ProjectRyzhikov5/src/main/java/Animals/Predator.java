@@ -1,9 +1,15 @@
 package Animals;
 
+import java.time.LocalDate;
+
 public class Predator extends AbstractAnimal{
 
     public Predator() {
         character = "Хищный";
+    }
+
+    public Predator(String breed, String name, Double cost, String character, LocalDate birthDate) {
+        super(breed, name, cost, character, birthDate);
     }
 
     public String getBreed() {
@@ -20,5 +26,9 @@ public class Predator extends AbstractAnimal{
 
     public String getCharacter() {
         return character;
+    }
+
+    public LocalDate getbirthDate() {
+        return birthDate;
     }
 }

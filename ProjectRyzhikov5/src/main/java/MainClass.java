@@ -2,6 +2,7 @@ import Animals.Cat;
 import Animals.Dog;
 import Animals.Shark;
 import Exceptions.InvalidAnimalBirthDateException;
+import Exceptions.InvalidAnimalException;
 import Interfaces.SearchService;
 
 import java.time.LocalDate;
@@ -26,11 +27,11 @@ public class MainClass {
         Shark shark = new Shark("Акул","Акул",3d,"Shark1", localDate);
         searchService.checkLeapYearAnimal(shark);
 
+        Dog dog = new Dog("Собак","Собак",10d,"Dog", null);
         try{
-            Dog dog = new Dog("Собак","Собак",10d,"Dog", null);
             searchService.checkLeapYearAnimal(dog);
         } catch (Exception e){
-            throw new InvalidAnimalBirthDateException("Работа метода завершилась ошибкой "+ e);
+           throw new Exception("Работа метода завершилась ошибкой "+ e);
         }
 
 

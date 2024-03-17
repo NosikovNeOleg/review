@@ -7,7 +7,7 @@ import Interfaces.SearchService;
 public class SearchServiceImpl implements SearchService {
 
     @Override
-    public void checkLeapYearAnimal(AbstractAnimal abstractAnimal) throws Exception {
+    public void checkLeapYearAnimal(AbstractAnimal abstractAnimal) throws InvalidAnimalException, InvalidAnimalBirthDateException {
         if (abstractAnimal == null) {
             throw new InvalidAnimalException();
         } else {

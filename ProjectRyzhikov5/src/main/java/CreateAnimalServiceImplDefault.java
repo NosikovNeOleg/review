@@ -1,5 +1,10 @@
 import Animals.*;
+import Interfaces.Animal;
 import Interfaces.CreateAnimalService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CreateAnimalServiceImplDefault implements CreateAnimalService {
 
@@ -16,5 +21,8 @@ public class CreateAnimalServiceImplDefault implements CreateAnimalService {
                 default -> System.out.println(new Predator());
             }
         }
+    }
+    public Map<String, List<Animal>> createAnimalsMap(int animalsQuantity) {
+        return new HashMap<>();
     }
 }

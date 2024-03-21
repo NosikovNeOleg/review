@@ -12,4 +12,6 @@ public interface Animal {
     String getCharacter();
 
     LocalDate getBirthDate();
+
+    String getAnimalType();
 }

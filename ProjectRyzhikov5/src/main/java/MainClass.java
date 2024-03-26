@@ -7,6 +7,7 @@ import Interfaces.AnimalsRepository;
 import Interfaces.CreateAnimalService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,30 +51,31 @@ public class MainClass {
         System.out.println(mapAnimals.get("Dog").toString());
 
         AnimalsRepository animalsRepository = new AnimalsRepositoryImpl();
-        Animal[] arrayAnimals = new Animal[5];
-        arrayAnimals[0] = new Cat("Дворовый", "Barsik", 2.1d,
-                "Спокойный", LocalDate.of(2020, 3, 23));
-        arrayAnimals[1] = new Dog("Дворовый", "Bobik", 3.1d,
-                "Спокойный", LocalDate.of(2016, 3, 24));
-        arrayAnimals[2] = new Shark("Морской", "Ryba", 4.1d,
-                "Спокойный", LocalDate.of(2021, 3, 23));
-        arrayAnimals[3] = new Wolf("Лютоволк", "Volk", 5.1d,
-                "Спокойный", LocalDate.of(2024, 3, 11));
-        arrayAnimals[4] = new Cat("Персидский", "Persik", 6.1d,
-                "Спокойный", LocalDate.of(2012, 3, 23));
+
+        List<Animal> listAnimals = new ArrayList<>();
+        listAnimals.add(new Cat("Дворовый", "Barsik", 2.1d,
+                "Спокойный", LocalDate.of(2020, 3, 23)));
+        listAnimals.add(new Dog("Дворовый", "Bobik", 3.1d,
+                "Спокойный", LocalDate.of(2016, 3, 24)));
+        listAnimals.add(new Shark("Морской", "Ryba", 4.1d,
+                "Спокойный", LocalDate.of(2021, 3, 23)));
+        listAnimals.add(new Wolf("Лютоволк", "Volk", 5.1d,
+                "Спокойный", LocalDate.of(2024, 3, 11)));
+        listAnimals.add(new Cat("Персидский", "Persik", 6.1d,
+                "Спокойный", LocalDate.of(2012, 3, 23)));
 
         Map<String, LocalDate> animalsMap;
-        animalsMap = animalsRepository.findLeapYearNames(arrayAnimals);
+        animalsMap = animalsRepository.findLeapYearNames(listAnimals);
         System.out.println(animalsMap.keySet());
 
         Map<Animal, Integer> animalsOlderMap;
-        animalsOlderMap = animalsRepository.findOlderAnimal(arrayAnimals, 2);
+        animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 2);
         System.out.println(animalsOlderMap.keySet());
-        animalsOlderMap = animalsRepository.findOlderAnimal(arrayAnimals, 22);
+        animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 22);
         System.out.println(animalsOlderMap.keySet());
 
         Map<String, Integer> animalDuplicateMap;
-        animalDuplicateMap = animalsRepository.findDuplicate(arrayAnimals);
+        animalDuplicateMap = animalsRepository.findDuplicate(listAnimals);
         System.out.println(animalDuplicateMap.keySet() + " " + animalDuplicateMap.get("Кот")
                 + " " + animalDuplicateMap.get("Собака") + " " + animalDuplicateMap.get("Акула")
                 + " " + animalDuplicateMap.get("Волк"));

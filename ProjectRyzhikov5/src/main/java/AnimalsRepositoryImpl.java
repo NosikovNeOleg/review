@@ -5,17 +5,19 @@ import Interfaces.AnimalsRepository;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static java.time.LocalDate.now;
 
 public class AnimalsRepositoryImpl implements AnimalsRepository {
 
-    public Map<String, LocalDate> findLeapYearNames(Animal[] arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
-        if(IsInputNull(arrayAnimals)) {
+    public Map<String, LocalDate> findLeapYearNames(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
+        // HW-3-fix Переделал входной аргумент на лист
+        if (isInputNull(arrayAnimals)) {
             throw new AnimalArrayNullException();
         }
-        if(IsInputEmpty(arrayAnimals)) {
+        if (isInputEmpty(arrayAnimals)) {
             throw new AnimalArrayEmptyException();
         }
 
@@ -29,11 +31,12 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
         return animalsMap;
     }
 
-    public Map<Animal, Integer> findOlderAnimal(Animal[] arrayAnimals, int age) throws AnimalArrayEmptyException, AnimalArrayNullException {
-        if(IsInputNull(arrayAnimals)) {
+    public Map<Animal, Integer> findOlderAnimal(List<Animal> arrayAnimals, int age) throws AnimalArrayEmptyException, AnimalArrayNullException {
+        // HW-3-fix Переделал входной аргумент на лист
+        if (isInputNull(arrayAnimals)) {
             throw new AnimalArrayNullException();
         }
-        if(IsInputEmpty(arrayAnimals)) {
+        if (isInputEmpty(arrayAnimals)) {
             throw new AnimalArrayEmptyException();
         }
 
@@ -48,12 +51,12 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
             }
         }
         if (animalsMap.size() == 0) {
-            Animal oldestAnimal = arrayAnimals[0];
+            Animal oldestAnimal = arrayAnimals.get(0);
             LocalDate oldestDate = oldestAnimal.getBirthDate();
 
-            for (int i = 1; i < arrayAnimals.length; i++) {
-                if (oldestDate.isAfter(arrayAnimals[i].getBirthDate())) {
-                    oldestAnimal = arrayAnimals[i];
+            for (int i = 1; i < arrayAnimals.size(); i++) {
+                if (oldestDate.isAfter(arrayAnimals.get(i).getBirthDate())) {
+                    oldestAnimal = arrayAnimals.get(i);
                     oldestDate = oldestAnimal.getBirthDate();
                 }
             }
@@ -66,24 +69,20 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
         return animalsMap;
     }
 
-    public Map<String, Integer> findDuplicate(Animal[] arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
-        if(IsInputNull(arrayAnimals)) {
+    public Map<String, Integer> findDuplicate(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
+        // HW-3-fix Переделал входной аргумент на лист
+        if (isInputNull(arrayAnimals)) {
             throw new AnimalArrayNullException();
         }
-        if(IsInputEmpty(arrayAnimals)) {
+        if (isInputEmpty(arrayAnimals)) {
             throw new AnimalArrayEmptyException();
         }
 
         Map<String, Integer> animalsMap = new HashMap<>();
-        Integer currentDuplicates;
         for (Animal arrayAnimal : arrayAnimals) {
-            currentDuplicates = animalsMap.get(arrayAnimal.getAnimalType());
-            if (currentDuplicates == null) {
-                animalsMap.put(arrayAnimal.getAnimalType(), 1);
-            } else {
-                currentDuplicates = animalsMap.get(arrayAnimal.getAnimalType()) + 1;
-                animalsMap.put(arrayAnimal.getAnimalType(), currentDuplicates);
-            }
+            animalsMap.put(arrayAnimal.getAnimalType(), animalsMap.getOrDefault(
+                    arrayAnimal.getAnimalType(),
+                    0) + 1); // HW-3-fix Использование getOrDefault
         }
 
         String currentAnimalType;
@@ -97,13 +96,19 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
         return animalsMap;
     }
 
-    boolean IsInputNull(Animal[] arrayAnimals){
+    private boolean isInputNull(List<Animal> arrayAnimals) {
+        // HW-3-fix Переделал входной аргумент на лист
+        // HW-3-fix Исправлено имя метода, добавлен private
         return arrayAnimals == null;
     }
 
-    boolean IsInputEmpty(Animal[] arrayAnimals){
+    private boolean isInputEmpty(List<Animal> arrayAnimals) {
+        // HW-3-fix Переделал входной аргумент на лист
+        // HW-3-fix Исправлено имя метода, добавлен private
         // если в массиве нет элементов или хоть один из элементов null
-        if (arrayAnimals.length < 1) {return true;}
+        if (arrayAnimals.size() < 1) {
+            return true;
+        }
         for (Animal arrayAnimal : arrayAnimals) {
             if (arrayAnimal == null) {
                 return true;

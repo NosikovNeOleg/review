@@ -2,6 +2,9 @@ package Interfaces;
 
 import Animals.*;
 
+import java.util.List;
+import java.util.Map;
+
 public interface CreateAnimalService {
 
     int quantity = 10;
@@ -11,7 +14,7 @@ public interface CreateAnimalService {
         int animalChooser;
 
         while (i < quantity) {
-            System.out.print("Create Animal №" + (i+1) +": ");
+            System.out.print("Create Animal №" + (i + 1) + ": ");
             animalChooser = i % 4;
             switch (animalChooser) {
                 case 0 -> System.out.println(new Cat());
@@ -25,5 +28,7 @@ public interface CreateAnimalService {
     }
 
     void createAnimals(int animalsQuantity);
+
+    Map<String, List<Animal>> createAnimalsMap(int animalsQuantity);
 
 }

@@ -4,12 +4,16 @@ import java.time.LocalDate;
 
 public class Pet extends AbstractAnimal {
 
+    private final String animalType;
+
     public Pet() {
         character = "Домашний";
+        animalType = "Домашний";
     }
 
     public Pet(String breed, String name, Double cost, String character, LocalDate birthDate) {
         super(breed, name, cost, character, birthDate);
+        animalType = "Домашний";
     }
 
     public String getBreed() {
@@ -18,6 +22,10 @@ public class Pet extends AbstractAnimal {
 
     public String getName() {
         return name;
+    }
+
+    public String getAnimalType() {
+        return animalType;
     }
 
     public Double getCost() {

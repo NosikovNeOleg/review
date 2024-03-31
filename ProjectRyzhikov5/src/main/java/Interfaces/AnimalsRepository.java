@@ -13,5 +13,15 @@ public interface AnimalsRepository {
 
     Map<Animal, Integer> findOlderAnimal(List<Animal> arrayAnimals, int age) throws AnimalArrayEmptyException, AnimalArrayNullException;
 
-    Map<String, Integer> findDuplicate(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException;
+    Map<String, List<Animal>> findDuplicate(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException;
+
+    // HW-4 Новый метод
+    void findAverageAge (List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException;
+
+    // HW-4 Новый метод
+    List<Animal> findOldAndExpensive (List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException;
+
+    // HW-4 Новый метод
+    List<String> findMinConstAnimals (List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException;
+
 }

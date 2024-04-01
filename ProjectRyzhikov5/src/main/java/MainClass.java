@@ -55,7 +55,7 @@ public class MainClass {
         List<Animal> listAnimals = new ArrayList<>();
         listAnimals.add(new Cat("Дворовый", "Barsik", 2.1d,
                 "Спокойный", LocalDate.of(2020, 3, 23)));
-        listAnimals.add(new Dog("Дворовый", "Bobik", 3.1d,
+        listAnimals.add(new Dog("Дворовый", "Bobik", 6.1d,
                 "Спокойный", LocalDate.of(2016, 3, 24)));
         listAnimals.add(new Shark("Морской", "Ryba", 4.1d,
                 "Спокойный", LocalDate.of(2021, 3, 23)));
@@ -74,7 +74,7 @@ public class MainClass {
         animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 22);
         System.out.println(animalsOlderMap.keySet());
 
-        Map<String, Integer> animalDuplicateMap;
+        Map<String, List<Animal>> animalDuplicateMap;
         animalDuplicateMap = animalsRepository.findDuplicate(listAnimals);
         System.out.println(animalDuplicateMap.keySet() + " " + animalDuplicateMap.get("Кот")
                 + " " + animalDuplicateMap.get("Собака") + " " + animalDuplicateMap.get("Акула")
@@ -83,6 +83,13 @@ public class MainClass {
         //animalsRepository.findLeapYearNames(null);
         //animalsRepository.findOlderAnimal(null,2);
         //animalsRepository.findDuplicate(null);
+
+        //HW-4
+        animalsRepository.findAverageAge(listAnimals);
+        System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(0));
+        System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(1));
+        System.out.println(animalsRepository.findMinConstAnimals(listAnimals));
+
     }
 
 }

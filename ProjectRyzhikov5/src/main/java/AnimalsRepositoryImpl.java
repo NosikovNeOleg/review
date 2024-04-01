@@ -4,9 +4,11 @@ import Interfaces.Animal;
 import Interfaces.AnimalsRepository;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.time.LocalDate.now;
 
@@ -21,14 +23,12 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
             throw new AnimalArrayEmptyException();
         }
 
-        Map<String, LocalDate> animalsMap = new HashMap<>();
-        for (Animal arrayAnimal : arrayAnimals) {
-            if (arrayAnimal.getBirthDate().isLeapYear()) {
-                animalsMap.put(arrayAnimal.getAnimalType() + " " + arrayAnimal.getName(),
-                        arrayAnimal.getBirthDate());
-            }
-        }
-        return animalsMap;
+        // HW-4 Переделано на Стрим
+        return arrayAnimals.stream()
+                .filter(p -> p.getBirthDate().isLeapYear())
+                .collect(Collectors.toMap(value
+                                -> value.getAnimalType() + " " + value.getName(),
+                        Animal::getBirthDate));
     }
 
     public Map<Animal, Integer> findOlderAnimal(List<Animal> arrayAnimals, int age) throws AnimalArrayEmptyException, AnimalArrayNullException {
@@ -40,36 +40,25 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
             throw new AnimalArrayEmptyException();
         }
 
-        Map<Animal, Integer> animalsMap = new HashMap<>();
-        int animalAge;
-        for (Animal arrayAnimal : arrayAnimals) {
-            animalAge = now().minusYears(arrayAnimal.getBirthDate().getYear()).
-                    minusMonths(arrayAnimal.getBirthDate().getMonthValue()).
-                    minusDays(arrayAnimal.getBirthDate().getDayOfMonth()).getYear();
-            if (animalAge >= age) {
-                animalsMap.put(arrayAnimal, animalAge);
-            }
-        }
+        // HW-4 Переделано на Стрим
+        Map<Animal, Integer> animalsMap;
+        animalsMap = arrayAnimals.stream()
+                .filter(p -> p.getAge() >= age)
+                .collect(Collectors.toMap(value
+                                -> value,
+                        Animal::getAge));
         if (animalsMap.size() == 0) {
-            Animal oldestAnimal = arrayAnimals.get(0);
-            LocalDate oldestDate = oldestAnimal.getBirthDate();
-
-            for (int i = 1; i < arrayAnimals.size(); i++) {
-                if (oldestDate.isAfter(arrayAnimals.get(i).getBirthDate())) {
-                    oldestAnimal = arrayAnimals.get(i);
-                    oldestDate = oldestAnimal.getBirthDate();
-                }
-            }
-            animalAge = now().minusYears(oldestAnimal.getBirthDate().getYear()).
-                    minusMonths(oldestAnimal.getBirthDate().getMonthValue()).
-                    minusDays(oldestAnimal.getBirthDate().getDayOfMonth()).getYear();
-            animalsMap.put(oldestAnimal, animalAge);
+            animalsMap = arrayAnimals.stream()
+                    .sorted(Comparator.comparing(Animal::getBirthDate))
+                    .limit(1)
+                    .collect(Collectors.toMap(value
+                                    -> value,
+                            Animal::getAge));
         }
-
         return animalsMap;
     }
 
-    public Map<String, Integer> findDuplicate(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
+    public Map<String, List<Animal>> findDuplicate(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
         // HW-3-fix Переделал входной аргумент на лист
         if (isInputNull(arrayAnimals)) {
             throw new AnimalArrayNullException();
@@ -78,23 +67,57 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
             throw new AnimalArrayEmptyException();
         }
 
-        Map<String, Integer> animalsMap = new HashMap<>();
-        for (Animal arrayAnimal : arrayAnimals) {
-            animalsMap.put(arrayAnimal.getAnimalType(), animalsMap.getOrDefault(
-                    arrayAnimal.getAnimalType(),
-                    0) + 1); // HW-3-fix Использование getOrDefault
-        }
-
-        String currentAnimalType;
-        for (Animal arrayAnimal : arrayAnimals) {
-            currentAnimalType = arrayAnimal.getAnimalType();
-            if (animalsMap.get(currentAnimalType) > 1) {
-                System.out.println("Дубликат: " + arrayAnimal);
-            }
-        }
-
-        return animalsMap;
+        // HW-4 Переделано на Стрим
+        return arrayAnimals.stream()
+                .collect(Collectors.groupingBy(Animal::getAnimalType,
+                        Collectors.toList()));
     }
+
+    // HW-4 Новый метод
+    public void findAverageAge(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
+        if (isInputNull(arrayAnimals)) {
+            throw new AnimalArrayNullException();
+        }
+        if (isInputEmpty(arrayAnimals)) {
+            throw new AnimalArrayEmptyException();
+        }
+        System.out.println("Средний возраст: " + arrayAnimals.stream().mapToInt(Animal::getAge)
+                .summaryStatistics().getAverage());
+    }
+
+    // HW-4 Новый метод
+    public List<Animal> findOldAndExpensive(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
+        if (isInputNull(arrayAnimals)) {
+            throw new AnimalArrayNullException();
+        }
+        if (isInputEmpty(arrayAnimals)) {
+            throw new AnimalArrayEmptyException();
+        }
+        Double average = arrayAnimals.stream().mapToDouble(Animal::getCost)
+                .summaryStatistics().getAverage();
+        return arrayAnimals.stream()
+                .filter(p -> p.getAge() > 5)
+                .filter(p -> p.getCost() > average)
+                .sorted((o1, o2) -> -o1.getBirthDate().compareTo(o2.getBirthDate()))
+                .collect(Collectors.toList());
+    }
+
+    // HW-4 Новый метод
+    public List<String> findMinConstAnimals(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
+        if (isInputNull(arrayAnimals)) {
+            throw new AnimalArrayNullException();
+        }
+        if (isInputEmpty(arrayAnimals)) {
+            throw new AnimalArrayEmptyException();
+        }
+        return arrayAnimals.stream()
+                .sorted(Comparator.comparing(Animal::getCost))
+                .limit(3)
+                .sorted((o1, o2) -> -o1.getName().compareTo(o2.getName()))
+                .map(Animal::getName)
+                .collect(Collectors.toList());
+    }
+
 
     private boolean isInputNull(List<Animal> arrayAnimals) {
         // HW-3-fix Переделал входной аргумент на лист

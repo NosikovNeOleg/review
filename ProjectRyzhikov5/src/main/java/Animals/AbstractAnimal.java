@@ -5,6 +5,8 @@ import Interfaces.Animal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static java.time.LocalDate.now;
+
 public abstract class AbstractAnimal implements Animal {
 
     protected String breed; // порода
@@ -69,6 +71,13 @@ public abstract class AbstractAnimal implements Animal {
     @Override
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    // HW-4
+    public Integer getAge() {
+        return now().minusYears(this.getBirthDate().getYear()).
+                minusMonths(this.getBirthDate().getMonthValue()).
+                minusDays(this.getBirthDate().getDayOfMonth()).getYear();
     }
 
     @Override

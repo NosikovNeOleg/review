@@ -14,4 +14,7 @@ public interface Animal {
     LocalDate getBirthDate();
 
     String getAnimalType();
+
+    // HW-4
+    Integer getAge();
 }

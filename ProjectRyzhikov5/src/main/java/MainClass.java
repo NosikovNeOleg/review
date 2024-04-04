@@ -5,6 +5,7 @@ import Animals.Wolf;
 import Interfaces.Animal;
 import Interfaces.AnimalsRepository;
 import Interfaces.CreateAnimalService;
+import Interfaces.Multithreading;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -90,6 +91,11 @@ public class MainClass {
         System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(1));
         System.out.println(animalsRepository.findMinConstAnimals(listAnimals));
 
+        // HW-5
+        Multithreading multithreading = new MultithreadingImpl();
+        multithreading.ParallelGenerationRandoms(4, 100000);
+        multithreading.ThreadSafelyCounter(4, 10);
+        multithreading.ParallelFactorialCalculation(4,20);
     }
 
 }

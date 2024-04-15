@@ -1,38 +1,73 @@
 import Interfaces.Animal;
-import Interfaces.CreateAnimalService;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDate;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 class CreateAnimalServiceImplTest {
 
-    CreateAnimalService createAnimalService = new CreateAnimalServiceImpl();
+    //CreateAnimalService createAnimalService = new CreateAnimalServiceImpl();
     List<String> animalTypesForCreation = createAnimalTypesList(); // HW-3-fix перечень животных, которые создаются в CreateAnimalServiceImpl
+    ResultReader resultReader = new ResultReader();
+    Path path = Paths.get("src", "test", "resources", "animals", "logData.txt");
+
+    @Mock
+    private FilesConfig filesConfig;
+
+    @InjectMocks
+    private CreateAnimalServiceImpl createAnimalService;
 
     @Test
     @DisplayName("Проверка создания HashMap животных")
-    void checkAnimalsMap() {
+    void checkAnimalsMap() throws IOException {
         int animalsQuantity = 6;
+        Files.deleteIfExists(path);
+        Files.createFile(path);
+        //FilesCongig filesCongig = mock(FilesCongig.class);
+        when(filesConfig.GetPath(1)).thenReturn(path);
+
+        // HW-6
         Map<String, List<Animal>> mapAnimals = createAnimalService.createAnimalsMap(animalsQuantity);
         Assert.assertEquals(4, mapAnimals.size());
+        int rowsCount = 0;
+        try {
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                rowsCount++;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Assert.assertEquals(animalsQuantity, rowsCount); // HW-6
     }
 
     @ParameterizedTest
     @DisplayName("Параметризованный тест")
     @MethodSource("fetchData")
-    void checkAnimalsMapParametrized(int animalsInput, int mapSize) {
+    void checkAnimalsMapParametrized(int animalsInput, int mapSize) throws IOException {
         // HW-3-fix Тест проверяет количества животных всех типов, перечень типов задается отдельно
+        when(filesConfig.GetPath(1)).thenReturn(path);
         Map<String, List<Animal>> mapAnimals = createAnimalService.createAnimalsMap(animalsInput);
         Assert.assertEquals(mapSize, mapAnimals.size());
         int curAnimalNum = 0;

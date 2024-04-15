@@ -72,8 +72,8 @@ public class MainClass {
         Map<Animal, Integer> animalsOlderMap;
         animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 2);
         System.out.println(animalsOlderMap.keySet());
-        animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 22);
-        System.out.println(animalsOlderMap.keySet());
+        /*animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 22);
+        System.out.println(animalsOlderMap.keySet());*/
 
         Map<String, List<Animal>> animalDuplicateMap;
         animalDuplicateMap = animalsRepository.findDuplicate(listAnimals);
@@ -96,6 +96,10 @@ public class MainClass {
         multithreading.ParallelGenerationRandoms(4, 100000);
         multithreading.ThreadSafelyCounter(4, 10);
         multithreading.ParallelFactorialCalculation(4,20);
+
+        // HW-6
+        //ResultReader resultReader = new ResultReader();
+        //resultReader.PrintAnimalJson();
     }
 
 }

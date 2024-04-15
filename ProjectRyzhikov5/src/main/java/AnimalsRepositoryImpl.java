@@ -2,17 +2,20 @@ import Exceptions.AnimalArrayEmptyException;
 import Exceptions.AnimalArrayNullException;
 import Interfaces.Animal;
 import Interfaces.AnimalsRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.time.LocalDate.now;
 
 public class AnimalsRepositoryImpl implements AnimalsRepository {
+
+    FilesConfig filesConfig = new FilesConfig();
 
     public Map<String, LocalDate> findLeapYearNames(List<Animal> arrayAnimals) throws AnimalArrayNullException, AnimalArrayEmptyException {
         // HW-3-fix Переделал входной аргумент на лист
@@ -55,6 +58,31 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
                                     -> value,
                             Animal::getAge));
         }
+        // HW-6
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        //objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+
+        Map<Animal, Integer> animalsMapEncode = new HashMap<>();
+        int animalAge;
+        for (Animal key : animalsMap.keySet()) {
+            animalAge = animalsMap.get(key);
+            key.setSecretInformation(Base64.getEncoder().
+                    encodeToString(key.getSecretInformation().getBytes()));
+            animalsMapEncode.put(key, animalAge);
+        }
+        String path = filesConfig.GetStringPath(2);
+        File file = new File(path);
+
+        try {
+            objectMapper.writeValue(file, animalsMapEncode.keySet());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        ResultReader resultReader = new ResultReader();
+        resultReader.PrintAnimalJson();
+
         return animalsMap;
     }
 

@@ -22,6 +22,19 @@ public class Dog extends Pet{
                 '}';
     }
 
+    @Override
+    public String toStringWithSecretInformation() {
+        return "Dog{" +
+                "breed='" + breed + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", character='" + character + '\'' +
+                ", birthDate=" + dateTimeFormatter.format(birthDate) +
+                ", character='" + getAnimalType() + '\'' +
+                ", secretInformation='" + secretInformation + '\'' +
+                '}';
+    }
+
     public Dog() {
         character = "Собачий";
         animalType = "Собака";

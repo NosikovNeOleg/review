@@ -9,10 +9,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,8 +18,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static java.time.LocalDate.now;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
 
 class AnimalsRepositoryImplTest {
@@ -130,7 +124,8 @@ class AnimalsRepositoryImplTest {
     void findAverageAge() throws AnimalArrayNullException, AnimalArrayEmptyException {
         System.setOut(new PrintStream(output));
         animalsRepository.findAverageAge(listAnimals);
-        Assert.assertTrue(output.toString().trim().contains("Средний возраст:"));
+        Assert.assertEquals("Средний возраст: " + listAnimals.stream().mapToInt(Animal::getAge)
+                .summaryStatistics().getAverage(), output.toString().trim()); //HW-6 fix
         System.setOut(null);
     }
 

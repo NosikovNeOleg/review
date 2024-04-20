@@ -22,7 +22,7 @@ import java.util.Random;
 
 import static java.time.LocalDate.now;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "animalType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "animalType")
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Cat.class, name = "Кот"),
         @JsonSubTypes.Type(value = Dog.class, name = "Собака"),
@@ -145,7 +145,7 @@ public abstract class AbstractAnimal implements Animal, Serializable {
 
     // HW-6 Метод выбора случайной строки из файла secretInformation.txt
     private String calculateSecretInformation() {
-        String secretString = "default";
+        String secretString;
 
         Path path = Paths.get("src", "main", "resources", "secretStore", "secretInformation.txt");
         int linesCount = 0;
@@ -155,16 +155,9 @@ public abstract class AbstractAnimal implements Animal, Serializable {
                 linesCount++;
             }
             Random rn = new Random();
-            int randomNum = rn.nextInt(linesCount + 1);
-            linesCount = 1;
+            int randomNum = rn.nextInt(linesCount);
 
-            for (String line : lines) {
-                secretString = line;
-                if (randomNum == linesCount) {
-                    break;
-                }
-                linesCount++;
-            }
+            secretString = lines.get(randomNum); // HW-6 fix
 
         } catch (IOException e) {
             throw new RuntimeException(e);

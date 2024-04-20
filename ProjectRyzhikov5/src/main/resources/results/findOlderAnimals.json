@@ -7,31 +7,4 @@
   "birthDate" : "2012-03-23",
   "secretInformation" : "VGhlb25HcmV5am95",
   "age" : 11
-}, {
-  "animalType" : "Собака",
-  "breed" : "Дворовый",
-  "name" : "Bobik",
-  "cost" : 6.1,
-  "character" : "Спокойный",
-  "birthDate" : "2016-03-24",
-  "secretInformation" : "VHlyaW9uTGFubmlzdGVy",
-  "age" : 7
-}, {
-  "animalType" : "Акула",
-  "breed" : "Морской",
-  "name" : "Ryba",
-  "cost" : 4.1,
-  "character" : "Спокойный",
-  "birthDate" : "2021-03-23",
-  "secretInformation" : "VGhlb25HcmV5am95",
-  "age" : 2
-}, {
-  "animalType" : "Кот",
-  "breed" : "Дворовый",
-  "name" : "Barsik",
-  "cost" : 2.1,
-  "character" : "Спокойный",
-  "birthDate" : "2020-03-23",
-  "secretInformation" : "U2FuZG9yQ2xlZ2FuZQ==",
-  "age" : 3
 } ]

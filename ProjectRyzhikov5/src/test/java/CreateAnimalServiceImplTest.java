@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mock;
+import static java.time.LocalDate.now;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,13 +48,17 @@ class CreateAnimalServiceImplTest {
         // HW-6
         Map<String, List<Animal>> mapAnimals = createAnimalService.createAnimalsMap(animalsQuantity);
         Assert.assertEquals(4, mapAnimals.size());
-        int rowsCount = 0;
+        int rowsCount;
         try {
             List<String> lines = Files.readAllLines(path);
-            for (String line : lines) {
-                rowsCount++;
-            }
-
+            rowsCount = lines.size(); // HW-6 fix
+            // HW-6 fix Проверки записанных в файл животных на соответствие алгоритму создания
+            Assert.assertTrue(lines.get(0).trim().contains("Кот w 0.1 " + now().toString()));
+            Assert.assertTrue(lines.get(1).trim().contains("Собака w 1.1 " + now().toString()));
+            Assert.assertTrue(lines.get(2).trim().contains("Акула w 2.1 " + now().toString()));
+            Assert.assertTrue(lines.get(3).trim().contains("Волк w 3.1 " + now().toString()));
+            Assert.assertTrue(lines.get(4).trim().contains("Кот w 4.1 " + now().toString()));
+            Assert.assertTrue(lines.get(5).trim().contains("Собака w 5.1 " + now().toString()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

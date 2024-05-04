@@ -1,0 +1,10 @@
+[ {
+  "animalType" : "Кот",
+  "breed" : "Персидский",
+  "name" : "Persik",
+  "cost" : 6.1,
+  "character" : "Спокойный",
+  "birthDate" : "2012-03-23",
+  "secretInformation" : "VGhlb25HcmV5am95",
+  "age" : 11
+} ]

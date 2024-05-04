@@ -1,0 +1,37 @@
+[ {
+  "breed" : "Дворовый",
+  "name" : "Barsik",
+  "cost" : 2.1,
+  "character" : "Спокойный",
+  "birthDate" : "2020-03-23",
+  "secretInformation" : "RWRkYXJkU3Rhcms=",
+  "animalType" : "Кот",
+  "age" : 3
+}, {
+  "breed" : "Персидский",
+  "name" : "Persik",
+  "cost" : 6.1,
+  "character" : "Спокойный",
+  "birthDate" : "2012-03-23",
+  "secretInformation" : "S2hhbERyb2dv",
+  "animalType" : "Кот",
+  "age" : 11
+}, {
+  "breed" : "Дворовый",
+  "name" : "Bobik",
+  "cost" : 6.1,
+  "character" : "Спокойный",
+  "birthDate" : "2016-03-24",
+  "secretInformation" : "RGF2b3NTZWF3b3J0aA==",
+  "animalType" : "Собака",
+  "age" : 7
+}, {
+  "breed" : "Морской",
+  "name" : "Ryba",
+  "cost" : 4.1,
+  "character" : "Спокойный",
+  "birthDate" : "2021-03-23",
+  "secretInformation" : "Um9iZXJ0QmFyYXRoZW9u",
+  "animalType" : "Акула",
+  "age" : 2
+} ]

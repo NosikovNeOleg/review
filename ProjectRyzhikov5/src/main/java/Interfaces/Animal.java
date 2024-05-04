@@ -17,4 +17,11 @@ public interface Animal {
 
     // HW-4
     Integer getAge();
+
+    // HW-6
+    String getSecretInformation();
+
+    void setSecretInformation(String secretInformation);
+
+    String toStringWithSecretInformation();
 }

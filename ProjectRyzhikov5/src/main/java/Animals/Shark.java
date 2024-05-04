@@ -31,4 +31,17 @@ public class Shark extends Predator{
                 ", birthDate=" + dateTimeFormatter.format(birthDate) +
                 '}';
     }
+
+    @Override
+    public String toStringWithSecretInformation() {
+        return "Shark{" +
+                "breed='" + breed + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", character='" + character + '\'' +
+                ", birthDate=" + dateTimeFormatter.format(birthDate) +
+                ", character='" + getAnimalType() + '\'' +
+                ", secretInformation='" + secretInformation + '\'' +
+                '}';
+    }
 }

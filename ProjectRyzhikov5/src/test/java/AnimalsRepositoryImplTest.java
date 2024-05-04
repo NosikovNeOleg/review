@@ -1,26 +1,28 @@
+import Animals.*;
 import Exceptions.AnimalArrayEmptyException;
 import Exceptions.AnimalArrayNullException;
 import Interfaces.Animal;
 import Interfaces.AnimalsRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import Animals.Cat;
-import Animals.Dog;
-import Animals.Shark;
-import Animals.Wolf;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.time.LocalDate.now;
 
 
 class AnimalsRepositoryImplTest {
+
+    static final String path = "C:\\Users\\Dima\\IdeaProjects\\mts-homework-ryzhikov\\ProjectRyzhikov5\\src\\test\\resources\\results\\findOlderAnimals.json";
 
     // HW-3-fix Переделал с массива на лист
     AnimalsRepository animalsRepository = new AnimalsRepositoryImpl();
@@ -46,6 +48,22 @@ class AnimalsRepositoryImplTest {
     void findOlderAnimal() throws AnimalArrayNullException, AnimalArrayEmptyException {
         animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 2);
         Assert.assertEquals(4, animalsOlderMap.size());
+        // HW-6
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        TypeReference<Set<AbstractAnimal>> typeRef
+                = new TypeReference<>() {
+        };
+        Set<AbstractAnimal> animalsSet = new HashSet<>();
+        File file = new File(path);
+        try {
+            animalsSet = objectMapper.readValue(file, typeRef);
+        } catch (
+                IOException e) {
+            System.out.println(e.getMessage());
+        }
+        Assert.assertEquals(4, animalsSet.size());
+        List<Animal> listAnimals = CreateAnimalsTestArray();
         animalsOlderMap = animalsRepository.findOlderAnimal(listAnimals, 22);
         // HW-3-fix Переделал на проверку полученного возраста
         Assert.assertTrue(animalsOlderMap.containsValue(now().
@@ -106,7 +124,8 @@ class AnimalsRepositoryImplTest {
     void findAverageAge() throws AnimalArrayNullException, AnimalArrayEmptyException {
         System.setOut(new PrintStream(output));
         animalsRepository.findAverageAge(listAnimals);
-        Assert.assertEquals("Средний возраст: 4.4", output.toString().trim());
+        Assert.assertEquals("Средний возраст: " + listAnimals.stream().mapToInt(Animal::getAge)
+                .summaryStatistics().getAverage(), output.toString().trim()); //HW-6 fix
         System.setOut(null);
     }
 
@@ -125,9 +144,9 @@ class AnimalsRepositoryImplTest {
     @DisplayName("Поиск животных наименьшей стоимости")
     void findMinConstAnimals() throws AnimalArrayNullException, AnimalArrayEmptyException {
         minConstAnimals = animalsRepository.findMinConstAnimals(listAnimals);
-        Assert.assertEquals("Volk",minConstAnimals.get(0));
-        Assert.assertEquals("Ryba",minConstAnimals.get(1));
-        Assert.assertEquals("Barsik",minConstAnimals.get(2));
+        Assert.assertEquals("Volk", minConstAnimals.get(0));
+        Assert.assertEquals("Ryba", minConstAnimals.get(1));
+        Assert.assertEquals("Barsik", minConstAnimals.get(2));
     }
 
 

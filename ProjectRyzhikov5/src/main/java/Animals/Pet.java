@@ -50,4 +50,17 @@ public class Pet extends AbstractAnimal {
                 ", birthDate=" + dateTimeFormatter.format(birthDate) +
                 '}';
     }
+
+    @Override
+    public String toStringWithSecretInformation() {
+        return "Pet{" +
+                "breed='" + breed + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", character='" + character + '\'' +
+                ", birthDate=" + dateTimeFormatter.format(birthDate) +
+                ", character='" + getAnimalType() + '\'' +
+                ", secretInformation='" + secretInformation + '\'' +
+                '}';
+    }
 }

@@ -2,6 +2,7 @@ package Interfaces;
 
 import Animals.*;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,6 @@ public interface CreateAnimalService {
 
     void createAnimals(int animalsQuantity);
 
-    Map<String, List<Animal>> createAnimalsMap(int animalsQuantity);
+    Map<String, List<Animal>> createAnimalsMap(int animalsQuantity) throws IOException;
 
 }

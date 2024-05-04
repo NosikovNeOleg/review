@@ -31,4 +31,17 @@ public class Wolf extends Predator{
                 ", birthDate=" + dateTimeFormatter.format(birthDate) +
                 '}';
     }
+
+    @Override
+    public String toStringWithSecretInformation() {
+        return "Wolf{" +
+                "breed='" + breed + '\'' +
+                ", name='" + name + '\'' +
+                ", cost=" + cost +
+                ", character='" + character + '\'' +
+                ", birthDate=" + dateTimeFormatter.format(birthDate) +
+                ", character='" + getAnimalType() + '\'' +
+                ", secretInformation='" + secretInformation + '\'' +
+                '}';
+    }
 }

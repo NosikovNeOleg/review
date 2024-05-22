@@ -9,6 +9,14 @@ public class Wolf extends Predator{
     public Wolf() {
         character = "Волчара";
         animalType = "Волк";
+        birthDate = LocalDate.of(2020, 3, 23);
+    }
+
+    public Wolf(String wolfName) {
+        character = "Волчара";
+        animalType = "Волк";
+        name = wolfName;
+        birthDate = LocalDate.of(2020, 3, 23);
     }
 
     @Override

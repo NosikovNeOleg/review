@@ -1,3 +1,5 @@
+package com.rdm.rdm.implementations;
+
 import Animals.AbstractAnimal;
 import Interfaces.Animal;
 import com.fasterxml.jackson.core.type.TypeReference;

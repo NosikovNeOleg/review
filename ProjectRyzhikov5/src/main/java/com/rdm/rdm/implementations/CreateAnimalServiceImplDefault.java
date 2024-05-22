@@ -1,3 +1,5 @@
+package com.rdm.rdm.implementations;
+
 import Animals.*;
 import Interfaces.Animal;
 import Interfaces.CreateAnimalService;
@@ -25,4 +27,6 @@ public class CreateAnimalServiceImplDefault implements CreateAnimalService {
     public Map<String, List<Animal>> createAnimalsMap(int animalsQuantity) {
         return new HashMap<>();
     }
+
+    //public String getCatName() {return null;}
 }

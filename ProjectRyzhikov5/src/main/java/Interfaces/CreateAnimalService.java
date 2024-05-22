@@ -32,4 +32,6 @@ public interface CreateAnimalService {
 
     Map<String, List<Animal>> createAnimalsMap(int animalsQuantity) throws IOException;
 
+    //String getCatName() ;
+
 }

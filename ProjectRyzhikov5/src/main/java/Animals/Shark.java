@@ -14,6 +14,14 @@ public class Shark extends Predator{
     public Shark() {
         character = "Акулий";
         animalType = "Акула";
+        birthDate = LocalDate.of(2020, 3, 23);
+    }
+
+    public Shark(String sharkName) {
+        character = "Акулий";
+        animalType = "Акула";
+        name = sharkName;
+        birthDate = LocalDate.of(2020, 3, 23);
     }
 
     public Shark(String breed, String name, Double cost, String character, LocalDate birthDate) {

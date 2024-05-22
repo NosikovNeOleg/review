@@ -1,3 +1,5 @@
+package com.rdm.rdm.implementations;
+
 import Interfaces.Multithreading;
 
 import java.util.Random;

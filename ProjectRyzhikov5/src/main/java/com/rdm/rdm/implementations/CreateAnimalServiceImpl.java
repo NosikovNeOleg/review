@@ -1,21 +1,45 @@
+package com.rdm.rdm.implementations;
+
 import Animals.*;
 import Interfaces.Animal;
 import Interfaces.CreateAnimalService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.time.LocalDate.now;
 
+@Component
+@Service
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
+    @Autowired
+    public CreateAnimalServiceImpl(List<String> catNames, List<String> dogNames, List<String> wolfNames, List<String> sharkNames) {
+        this.catNames = catNames;
+        this.dogNames = dogNames;
+        this.wolfNames = wolfNames;
+        this.sharkNames = sharkNames;
+    }
+
+
+    public CreateAnimalServiceImpl(){}
+
     FilesConfig filesConfig = new FilesConfig();
+    //@Value("${catNames}")
+    public List<String> catNames;
+    //@Value("${dogNames}")
+    public List<String> dogNames;
+    //@Value("${wolfNames}")
+    public List<String> wolfNames;
+    //@Value("${sharkNames}")
+    public List<String> sharkNames;
 
     @Override
     public void createAnimals() {
@@ -42,10 +66,10 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
             System.out.print("          Create Animal №" + (i + 1) + ": ");
             animalChooser = i % 4;
             switch (animalChooser) {
-                case 0 -> System.out.println(new Cat());
-                case 1 -> System.out.println(new Dog());
-                case 2 -> System.out.println(new Shark());
-                case 3 -> System.out.println(new Wolf());
+                case 0 -> System.out.println(new Cat(getCatName()));
+                case 1 -> System.out.println(new Dog(getDogName()));
+                case 2 -> System.out.println(new Shark(getSharkName()));
+                case 3 -> System.out.println(new Wolf(getWolfName()));
                 default -> System.out.println(new Predator());
             }
         }
@@ -98,6 +122,30 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
             lastAnimalInFile++;
         }
         return animalsMap;
+    }
+
+    public String getCatName() {
+        Random rn = new Random();
+        int randomNum = rn.nextInt(catNames.size());
+        return catNames.get(randomNum);
+    }
+
+    public String getDogName() {
+        Random rn = new Random();
+        int randomNum = rn.nextInt(dogNames.size());
+        return dogNames.get(randomNum);
+    }
+
+    public String getSharkName() {
+        Random rn = new Random();
+        int randomNum = rn.nextInt(sharkNames.size());
+        return sharkNames.get(randomNum);
+    }
+
+    public String getWolfName() {
+        Random rn = new Random();
+        int randomNum = rn.nextInt(wolfNames.size());
+        return wolfNames.get(randomNum);
     }
 
 }

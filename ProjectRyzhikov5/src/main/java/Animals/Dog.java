@@ -38,6 +38,14 @@ public class Dog extends Pet{
     public Dog() {
         character = "Собачий";
         animalType = "Собака";
+        birthDate = LocalDate.of(2020, 3, 23);
+    }
+
+    public Dog(String dogName) {
+        character = "Собачий";
+        animalType = "Собака";
+        name = dogName;
+        birthDate = LocalDate.of(2020, 3, 23);
     }
 
     public Dog(String breed, String name, Double cost, String character, LocalDate birthDate) {

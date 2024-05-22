@@ -6,10 +6,12 @@ import Interfaces.Animal;
 import Interfaces.AnimalsRepository;
 import Interfaces.CreateAnimalService;
 import Interfaces.Multithreading;
+import com.rdm.rdm.implementations.AnimalsRepositoryImpl;
+import com.rdm.rdm.implementations.CreateAnimalServiceImpl;
+import com.rdm.rdm.implementations.MultithreadingImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

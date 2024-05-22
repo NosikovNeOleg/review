@@ -1,10 +1,14 @@
+package com.rdm.rdm.implementations;
+
 import Exceptions.AnimalArrayEmptyException;
 import Exceptions.AnimalArrayNullException;
 import Interfaces.Animal;
 import Interfaces.AnimalsRepository;
+import Interfaces.CreateAnimalService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -166,6 +170,12 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
             }
         }
         return (false);
+    }
+
+    @PostConstruct
+    void fillStoreAnimals() {
+        CreateAnimalService createAnimalService = new CreateAnimalServiceImpl();
+        createAnimalService.createAnimals(4);
     }
 
 }

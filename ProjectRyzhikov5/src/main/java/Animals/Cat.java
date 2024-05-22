@@ -1,5 +1,6 @@
 package Animals;
 
+
 import java.time.LocalDate;
 
 public class Cat extends Pet {
@@ -38,10 +39,19 @@ public class Cat extends Pet {
     public Cat() {
         character = "Кошачий";
         animalType = "Кот";
+        birthDate = LocalDate.of(2020, 3, 23);
+    }
+
+    public Cat(String catName) {
+        character = "Кошачий";
+        animalType = "Кот";
+        name = catName;
+        birthDate = LocalDate.of(2020, 3, 23);
     }
 
     public Cat(String breed, String name, Double cost, String character, LocalDate birthDate) {
         super(breed, name, cost, character, birthDate);
         animalType = "Кот";
     }
+
 }

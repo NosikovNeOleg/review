@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class BeanConfiguration {
 
-    @Bean
-    public CreateAnimalService createAnimalService() {
-        return new CreateAnimalServiceImpl();
-    }
+//    @Bean
+//    public CreateAnimalService createAnimalService() {
+//        return new CreateAnimalServiceImpl();
+//    }
 }

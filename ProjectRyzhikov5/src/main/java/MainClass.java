@@ -88,16 +88,16 @@ public class MainClass {
         //animalsRepository.findDuplicate(null);
 
         //HW-4
-        animalsRepository.findAverageAge(listAnimals);
-        System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(0));
-        System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(1));
-        System.out.println(animalsRepository.findMinConstAnimals(listAnimals));
+//        animalsRepository.findAverageAge(listAnimals);
+//        System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(0));
+//        System.out.println(animalsRepository.findOldAndExpensive(listAnimals).get(1));
+//        System.out.println(animalsRepository.findMinConstAnimals(listAnimals));
 
         // HW-5
-        Multithreading multithreading = new MultithreadingImpl();
-        multithreading.ParallelGenerationRandoms(4, 100000);
-        multithreading.ThreadSafelyCounter(4, 10);
-        multithreading.ParallelFactorialCalculation(4,20);
+//        Multithreading multithreading = new MultithreadingImpl();
+//        multithreading.ParallelGenerationRandoms(4, 100000);
+//        multithreading.ThreadSafelyCounter(4, 10);
+//        multithreading.ParallelFactorialCalculation(4,20);
 
         // HW-6
         //ResultReader resultReader = new ResultReader();

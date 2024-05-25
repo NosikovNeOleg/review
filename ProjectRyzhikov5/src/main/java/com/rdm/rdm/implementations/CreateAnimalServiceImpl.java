@@ -16,29 +16,33 @@ import java.util.*;
 
 import static java.time.LocalDate.now;
 
-@Component
-@Service
+
+// В AnimalStarter мы уже сконфигурировали бин, если здесь указать @Component или @Service
+// то спринг будет ругаться, потому что будет два бина одного класса и он не сможет выбрать ни один
+//@Component
+//@Service
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
-    @Autowired
-    public CreateAnimalServiceImpl(List<String> catNames, List<String> dogNames, List<String> wolfNames, List<String> sharkNames) {
-        this.catNames = catNames;
-        this.dogNames = dogNames;
-        this.wolfNames = wolfNames;
-        this.sharkNames = sharkNames;
-    }
+//    @Autowired
+//    public CreateAnimalServiceImpl(List<String> catNames, List<String> dogNames, List<String> wolfNames, List<String> sharkNames) {
+//        this.catNames = catNames;
+//        this.dogNames = dogNames;
+//        this.wolfNames = wolfNames;
+//        this.sharkNames = sharkNames;
+//    }
+    // закомментировал поскольку получили значения через @Value
 
 
     public CreateAnimalServiceImpl(){}
 
     FilesConfig filesConfig = new FilesConfig();
-    //@Value("${catNames}")
+    @Value("${catNames}")
     public List<String> catNames;
-    //@Value("${dogNames}")
+    @Value("${dogNames}")
     public List<String> dogNames;
-    //@Value("${wolfNames}")
+    @Value("${wolfNames}")
     public List<String> wolfNames;
-    //@Value("${sharkNames}")
+    @Value("${sharkNames}")
     public List<String> sharkNames;
 
     @Override

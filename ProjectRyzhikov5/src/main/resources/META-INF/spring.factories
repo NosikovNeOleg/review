@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=java.com.rdm.rdm.config.StarterConfiguration
